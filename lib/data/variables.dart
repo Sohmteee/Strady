@@ -1,0 +1,37 @@
+Map<String, Map<String, dynamic>> dayNotes = {
+  "29-5-2023": {
+    "images": <String>[],
+    "note": "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n"
+        "I started this project today even though a gay called Zendor refused to acknoledge that I am better than him."
+        "\nBut because I have a good heart, and I am indeed superior, I decided to go on with it.\n\n",
+  },
+};
