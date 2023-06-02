@@ -51,10 +51,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> importImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedImages = await ImagePicker().pickMultiImage(
+      imageQuality: 100,
+      maxHeight: 1000,
+      maxWidth: 1000,
+    );
 
-    if (pickedFile != null) {
+    if (pickedImages.isNotEmpty) {
       final currentDate = dateToString(today);
 
       if (!dayNotes.containsKey(currentDate)) {
@@ -62,9 +65,9 @@ class _HomeScreenState extends State<HomeScreen> {
       }
 
       setState(() {
-        dayNotes[currentDate]!["images"].add(pickedFile.path);
-        debugPrint(pickedFile.path);
-        debugPrint(dayNotes[currentDate]!["images"].length.toString());
+        for (var pickedImage in pickedImages) {
+          dayNotes[currentDate]!["images"].add(pickedImage.path);
+        }
       });
     }
   }
