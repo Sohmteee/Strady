@@ -29,7 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
+      var previousDay = today;
       today = day;
+
+      if (controller.text.isNotEmpty || controller.text.trim() != "") {
+        dayNotes[dateToString(previousDay)]?["note"] = controller.text;
+        controller.clear();
+      }
     });
   }
 
@@ -105,16 +111,43 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            width: 80.w,
-                            height: 8.h,
-                            decoration: BoxDecoration(
-                              color: grey50,
-                              borderRadius: BorderRadius.circular(20.r),
+                        Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: Container(
+                                margin: EdgeInsets.only(top: 10.h),
+                                width: 80.w,
+                                height: 8.h,
+                                decoration: BoxDecoration(
+                                  color: grey50,
+                                  borderRadius: BorderRadius.circular(20.r),
+                                ),
+                              ),
                             ),
-                          ),
+                            Align(
+                              alignment: Alignment.topRight,
+                              child: GestureDetector(
+                                onTap: () => panelController.isPanelOpen
+                                    ? panelController.close()
+                                    : panelController.open(),
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: 10.w),
+                                  child: panelController.isPanelOpen
+                                      ? Icon(
+                                          Icons.swipe_down_alt,
+                                          color: grey100,
+                                          size: 35.sp,
+                                        )
+                                      : Icon(
+                                          Icons.swipe_up_alt,
+                                          color: grey100,
+                                          size: 35.sp,
+                                        ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(height: 40.h),
                         Row(
@@ -370,7 +403,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             shape: BoxShape.circle,
                           ),
                           weekendTextStyle: TextStyle(
-                            color: Colors.black,
+                            color: grey900,
                             fontSize: 16.sp,
                           ),
                         ),
@@ -404,7 +437,50 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         availableGestures: AvailableGestures.all,
                         onDaySelected: _onDaySelected,
-                      )
+                      ),
+                      Expanded(
+                        child: Container(
+                          width: double.maxFinite,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                grey100.withOpacity(0),
+                                grey800,
+                              ],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              SizedBox(height: 15.h),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    today = DateTime.now();
+                                  });
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 15.w,
+                                    horizontal: 20.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: grey800,
+                                    borderRadius: BorderRadius.circular(30.r),
+                                  ),
+                                  child: Text(
+                                    "Go to today",
+                                    style: TextStyle(
+                                      color: grey100,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -415,7 +491,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [grey800.withOpacity(0), grey800],
+                        colors: [
+                          grey800.withOpacity(0),
+                          grey800,
+                        ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                       ),
