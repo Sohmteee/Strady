@@ -6,11 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:strady/custom/image_list.dart';
+import 'package:strady/custom/orientation_options.dart';
 import 'package:strady/data/variables.dart';
 import 'package:strady/static/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'custom/note_area.dart';
+import 'custom/panel_header.dart';
 import 'data/functions.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,12 +25,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isClicked = false;
-  DateTime today = DateTime.now();
-  TextEditingController controller = TextEditingController();
-  PanelController panelController = PanelController();
-  FocusNode focusNode = FocusNode();
-
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       var previousDay = today;
@@ -67,7 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
       final currentDate = dateToString(today);
 
       if (!dayNotes.containsKey(currentDate)) {
-        dayNotes[currentDate] = {"images": [], "note": ""};
+        dayNotes[currentDate] = {
+          "images": [],
+          "note": "",
+        };
       }
 
       setState(() {
@@ -97,59 +98,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: grey800,
                   onPanelClosed: () {
                     FocusManager.instance.primaryFocus?.unfocus();
+                    setState(() {
+                      isPanelOpen = false;
+                    });
                   },
                   onPanelOpened: () {
                     focusNode.requestFocus();
+                    setState(() {
+                      isPanelOpen = true;
+                    });
                   },
-                  panel: Container(
+                  panel: AnimatedContainer(
+                    duration: const Duration(seconds: 2),
                     padding: EdgeInsets.fromLTRB(15.w, 20.h, 15.w, 0),
                     decoration: BoxDecoration(
                       color: grey800,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(30.r)),
+                      borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(isPanelOpen ? 0.r : 30.r)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Stack(
-                          children: [
-                            Align(
-                              alignment: Alignment.topCenter,
-                              child: Container(
-                                margin: EdgeInsets.only(top: 10.h),
-                                width: 80.w,
-                                height: 8.h,
-                                decoration: BoxDecoration(
-                                  color: grey50,
-                                  borderRadius: BorderRadius.circular(20.r),
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: GestureDetector(
-                                onTap: () => panelController.isPanelOpen
-                                    ? panelController.close()
-                                    : panelController.open(),
-                                child: Padding(
-                                  padding: EdgeInsets.only(right: 10.w),
-                                  child: panelController.isPanelOpen
-                                      ? Icon(
-                                          Icons.swipe_down_alt,
-                                          color: grey100,
-                                          size: 35.sp,
-                                        )
-                                      : Icon(
-                                          Icons.swipe_up_alt,
-                                          color: grey100,
-                                          size: 35.sp,
-                                        ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        const PanelHeader(),
+
                         SizedBox(height: 40.h),
+
+                        //day title
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -174,217 +148,24 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                           ],
                         ),
+
+                        SizedBox(height: 10.h),
+
+                        const OrientationOptions(),
+
                         SizedBox(height: 40.h),
+
                         if ((dayNotes[dateToString(today)]?["images"] !=
                                 null) &&
                             (dayNotes[dateToString(today)]?["images"].length! !=
                                 0))
-                          SizedBox(
-                            height: 200.h,
-                            child: ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: dayNotes[dateToString(today)]
-                                      ?["images"]
-                                  .length,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    showPictureDialog(
-                                      context: context,
-                                      today: today,
-                                      index: index,
-                                    );
-                                  },
-                                  onLongPressStart:
-                                      (LongPressStartDetails details) {
-                                    final RenderBox overlay =
-                                        Overlay.of(context)
-                                            .context
-                                            .findRenderObject() as RenderBox;
-                                    final RelativeRect position =
-                                        RelativeRect.fromRect(
-                                      Rect.fromPoints(
-                                        details.globalPosition,
-                                        details.globalPosition,
-                                      ),
-                                      Offset.zero & overlay.size,
-                                    );
+                          const ImageList(),
 
-                                    showMenu(
-                                      context: context,
-                                      position: position,
-                                      color: grey100,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      items: [
-                                        const PopupMenuItem(
-                                          value: 'view',
-                                          child: Text('View'),
-                                        ),
-                                        const PopupMenuItem(
-                                          value: 'delete',
-                                          child: Text('Delete'),
-                                        ),
-                                      ],
-                                      elevation: 8.0,
-                                    ).then((value) {
-                                      if (value == 'view') {
-                                        showPictureDialog(
-                                          context: context,
-                                          today: today,
-                                          index: index,
-                                        );
-                                      } else if (value == 'delete') {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return Center(
-                                                child: Container(
-                                                  margin: EdgeInsets.symmetric(
-                                                      horizontal: 50.w),
-                                                  padding: EdgeInsets.all(20.w),
-                                                  decoration: BoxDecoration(
-                                                    color: grey600,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.r),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      Text(
-                                                        "Are you sure you want to delete this photo?",
-                                                        style: TextStyle(
-                                                          color: grey100,
-                                                          fontSize: 18.sp,
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                      ),
-                                                      SizedBox(height: 30.h),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              setState(() {
-                                                                dayNotes[dateToString(
-                                                                            today)]
-                                                                        ?[
-                                                                        "images"]
-                                                                    .removeAt(
-                                                                        index);
-
-                                                                Navigator.pop(
-                                                                    context);
-                                                              });
-                                                            },
-                                                            child: const Icon(
-                                                              Icons.done,
-                                                              color:
-                                                                  Colors.green,
-                                                            ),
-                                                          ),
-                                                          SizedBox(width: 80.w),
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: const Icon(
-                                                              Icons.close,
-                                                              color: Colors.red,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              );
-                                            });
-                                      }
-                                    });
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
-                                      color: grey300,
-                                      borderRadius: BorderRadius.circular(10.r),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.r),
-                                      child: Image.file(
-                                        File(
-                                          dayNotes[dateToString(today)]
-                                              ?["images"][index],
-                                        ),
-                                        fit: BoxFit.fitHeight,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                              separatorBuilder: (context, index) {
-                                return SizedBox(width: 12.w);
-                              },
-                            ),
-                          ),
                         SizedBox(height: 14.h),
-                        Expanded(
-                          child: dayNotes.containsKey(dateToString(today)) &&
-                                  dayNotes[dateToString(today)]?["note"]
-                                          .trim() !=
-                                      ""
-                              ? SingleChildScrollView(
-                                  physics: const BouncingScrollPhysics(),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 8),
-                                    child: Text(
-                                      dayNotes[dateToString(today)]!["note"],
-                                      maxLines: null,
-                                      style: TextStyle(
-                                        color: grey300,
-                                        fontSize: 18.sp,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : TextField(
-                                  focusNode: focusNode,
-                                  controller: controller,
-                                  keyboardType: TextInputType.multiline,
-                                  textCapitalization:
-                                      TextCapitalization.sentences,
-                                  maxLines: null,
-                                  style: TextStyle(
-                                    color: grey300,
-                                    fontSize: 18.sp,
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      panelController.open();
-                                      focusNode.requestFocus();
-                                    });
-                                  },
-                                  onChanged: (value) {
-                                    setState(() {});
-                                  },
-                                  decoration: InputDecoration(
-                                    hintText: "Enter note here...",
-                                    hintStyle: TextStyle(
-                                      color: grey500,
-                                      fontSize: 18.sp,
-                                    ),
-                                    border: InputBorder.none,
-                                  ),
-                                ),
-                        ),
+
+                        //note area
+                        const NoteArea(),
+
                         SizedBox(height: 15.h),
                       ],
                     ),
@@ -407,6 +188,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 16.sp,
                           ),
                         ),
+                        onHeaderTapped: (date) {
+                          debugPrint("Header tapped");
+                        },
                         headerStyle: HeaderStyle(
                           formatButtonVisible: false,
                           titleTextStyle: TextStyle(
