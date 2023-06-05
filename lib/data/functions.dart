@@ -58,3 +58,73 @@ showPictureDialog({context, today, index}) {
       });
 }
 
+String daySuffix(int n) {
+  if (n.toString().length <= 1 || n.toString()[0] != "1") {
+    switch (n.toString()[n.toString().length - 1]) {
+      case "1":
+        return "st";
+      case "2":
+        return "nd";
+      case "3":
+        return "rd";
+      default:
+        return "th";
+    }
+  } else {
+    return "th";
+  }
+}
+
+void updateEvents(DateTime day) {
+  final String currentDate = dateToString(day);
+  if (!events!.contains(day)) {
+    events!.add(day);
+  }
+  if (dayNotes.containsKey(currentDate)) {
+    if (dayNotes[currentDate]!["images"].isNotEmpty ||
+        dayNotes[currentDate]!["note"].trim().isNotEmpty) {
+      events!.add(day);
+    } else {
+      events!.remove(day);
+    }
+  }
+}
+
+void noteFunction() {
+  String currentDate = dateToString(today);
+
+  if (selectedOrientation == OrientationOption.splitView) {
+    tabController.animateTo(
+      1,
+      duration: const Duration(milliseconds: 400),
+    );
+  }
+
+  if (!dayNotes.containsKey(currentDate)) {
+    if (controller.value.text.trim() != "") {
+      dayNotes[currentDate] = {
+        "images": [],
+        "note": controller.text.trim(),
+      };
+      controller.clear();
+      updateEvents(today);
+    } else {
+      focusNode.requestFocus();
+    }
+  } else {
+    Map<String, dynamic>? currentDayNote = dayNotes[currentDate];
+    if (currentDayNote != null) {
+      List<String> existingImages = List<String>.from(currentDayNote["images"]);
+
+      String text = currentDayNote["note"];
+      dayNotes.remove(currentDate);
+      dayNotes[currentDate] = {
+        "images": existingImages,
+        "note": controller.text.trim(),
+      };
+      controller.text = text;
+      updateEvents(today);
+      focusNode.requestFocus();
+    }
+  }
+}

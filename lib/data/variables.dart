@@ -5,16 +5,20 @@ bool isClicked = false;
 DateTime today = DateTime.now();
 TextEditingController controller = TextEditingController();
 PanelController panelController = PanelController();
+late TabController tabController;
 FocusNode focusNode = FocusNode();
 bool isPanelOpen = false;
 
 enum OrientationOption {
   splitView,
-  gridView,
   listView,
 }
 
 OrientationOption selectedOrientation = OrientationOption.listView;
+
+List<DateTime>? events = [
+  DateTime.now(),
+];
 
 Map<String, Map<String, dynamic>> dayNotes = {
   "29-5-2023": {

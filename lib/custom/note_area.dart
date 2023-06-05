@@ -43,7 +43,6 @@ class _NoteAreaState extends State<NoteArea> {
               ),
               onTap: () {
                 setState(() {
-                  panelController.open();
                   focusNode.requestFocus();
                 });
               },

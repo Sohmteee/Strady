@@ -3,61 +3,48 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:strady/data/variables.dart';
 import 'package:strady/static/colors.dart';
 
-class OrientationOptions extends StatefulWidget {
+
+class OrientationOptions extends StatelessWidget {
+  final OrientationOption selectedOrientation;
+  final void Function(OrientationOption) onOrientationChanged;
+
   const OrientationOptions({
-    super.key,
-    required this.selected,
-  });
+    required this.selectedOrientation,
+    required this.onOrientationChanged,
+    Key? key,
+  }) : super(key: key);
 
-  final int selected;
-
-  @override
-  State<OrientationOptions> createState() => _OrientationOptionsState();
-}
-
-class _OrientationOptionsState extends State<OrientationOptions> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         GestureDetector(
           onTap: () {
-            setState(() {
-              selectedOrientation = OrientationOption.listView;
-            });
+            onOrientationChanged(OrientationOption.listView);
           },
           child: RotatedBox(
             quarterTurns: 2,
             child: Icon(
               Icons.horizontal_split,
-              color: grey100,
+              color: selectedOrientation == OrientationOption.listView
+                  ? grey100
+                  : grey500,
               size: 35.sp,
             ),
           ),
         ),
         GestureDetector(
           onTap: () {
-            setState(() {
-              selectedOrientation = OrientationOption.gridView;
-            });
-          },
-          child: Icon(
-            Icons.dashboard,
-            color: grey100,
-            size: 30.sp,
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              selectedOrientation = OrientationOption.splitView;
-            });
+            onOrientationChanged(OrientationOption.splitView);
           },
           child: RotatedBox(
             quarterTurns: 2,
             child: Icon(
               Icons.vertical_split,
-              color: grey100,
+              color: selectedOrientation == OrientationOption.splitView
+                  ? grey100
+                  : grey500,
               size: 35.sp,
             ),
           ),
