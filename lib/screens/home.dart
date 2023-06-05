@@ -4,19 +4,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:strady/data/variables.dart';
 import 'package:strady/static/colors.dart';
-import 'package:strady/static/views/select_view.dart';
+import 'package:strady/views/select_view.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-import 'custom/orientation_options.dart';
-import 'data/functions.dart';
+import '../custom/orientation_options.dart';
+import '../data/functions.dart';
 
-class HomeScreen2 extends StatefulWidget {
-  const HomeScreen2({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomeScreen2> createState() => _HomeScreen2State();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreen2State extends State<HomeScreen2> {
+class _HomeScreenState extends State<HomeScreen> {
   Future<void> importImage() async {
     final pickedImages = await ImagePicker().pickMultiImage(
       imageQuality: 100,
@@ -44,6 +45,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: grey800,
       body: SafeArea(
         child: Scaffold(
           backgroundColor: grey800,
@@ -115,91 +117,84 @@ class _HomeScreen2State extends State<HomeScreen2> {
               ],
             ),
           ),
-          floatingActionButton: GestureDetector(
-            onTap: () {
-              setState(() {
-                isClicked = !isClicked;
-              });
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      importImage();
-                      if (controller.text.isNotEmpty ||
-                          controller.text.trim() != "") {
-                        noteFunction();
-                      }
-                      if (selectedOrientation == OrientationOption.splitView) {
-                        tabController.animateTo(
-                          0,
-                          duration: const Duration(milliseconds: 400),
-                        );
-                      }
-                    });
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 20.h,
-                      horizontal: 15.w,
-                    ),
-                    decoration: BoxDecoration(
-                      color: grey900.withOpacity(.6),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Icon(
-                      Icons.add_photo_alternate_rounded,
-                      color: grey300,
-                      size: 30.sp,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 8.h),
-                GestureDetector(
-                  onTap: () {
-                    setState(() {
+          floatingActionButton: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ZoomTapAnimation(
+                onTap: () {
+                  setState(() {
+                    importImage();
+                    if (controller.text.isNotEmpty ||
+                        controller.text.trim() != "") {
                       noteFunction();
-                    });
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 20.h,
-                      horizontal: 15.w,
-                    ),
-                    decoration: BoxDecoration(
-                      color: grey900.withOpacity(.6),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: dayNotes.containsKey(dateToString(today))
-                        ? controller.text.trim() != ""
-                            ? Icon(
-                                Icons.done,
-                                color: grey300,
-                                size: 30.sp,
-                              )
-                            : Icon(
-                                Icons.edit,
-                                color: grey300,
-                                size: 30.sp,
-                              )
-                        : (controller.text.trim().isEmpty ||
-                                controller.text.trim() == "")
-                            ? Icon(
-                                Icons.add,
-                                color: grey300,
-                                size: 30.sp,
-                              )
-                            : Icon(
-                                Icons.done,
-                                color: grey300,
-                                size: 30.sp,
-                              ),
+                    }
+                    if (selectedOrientation == OrientationOption.splitView) {
+                      tabController.animateTo(
+                        0,
+                        duration: const Duration(milliseconds: 400),
+                      );
+                    }
+                  });
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 20.h,
+                    horizontal: 15.w,
+                  ),
+                  decoration: BoxDecoration(
+                    color: grey900.withOpacity(.6),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Icon(
+                    Icons.add_photo_alternate_rounded,
+                    color: grey300,
+                    size: 30.sp,
                   ),
                 ),
-              ],
-            ),
+              ),
+              SizedBox(height: 8.h),
+              ZoomTapAnimation(
+                onTap: () {
+                  setState(() {
+                    noteFunction();
+                  });
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 20.h,
+                    horizontal: 15.w,
+                  ),
+                  decoration: BoxDecoration(
+                    color: grey900.withOpacity(.6),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: dayNotes.containsKey(dateToString(today))
+                      ? controller.text.trim() != ""
+                          ? Icon(
+                              Icons.done,
+                              color: grey300,
+                              size: 30.sp,
+                            )
+                          : Icon(
+                              Icons.edit,
+                              color: grey300,
+                              size: 30.sp,
+                            )
+                      : (controller.text.trim().isEmpty ||
+                              controller.text.trim() == "")
+                          ? Icon(
+                              Icons.add,
+                              color: grey300,
+                              size: 30.sp,
+                            )
+                          : Icon(
+                              Icons.done,
+                              color: grey300,
+                              size: 30.sp,
+                            ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

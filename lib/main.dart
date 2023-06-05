@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'home.dart';
-import 'home2.dart';
+import 'screens/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,10 +21,10 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             fontFamily: "Poppins",
           ),
-          home: const HomeScreen2(),
+          home: const HomeScreen(),
           debugShowCheckedModeBanner: false,
           routes: {
-            "/home": (context) => const HomeScreen2(),
+            "/home": (context) => const HomeScreen(),
           },
         );
       },

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:strady/data/functions.dart';
 import 'package:strady/data/variables.dart';
 import 'package:strady/static/colors.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class ImageList extends StatefulWidget {
   const ImageList({super.key});
@@ -94,7 +95,7 @@ class _ImageListState extends State<ImageList> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    GestureDetector(
+                                    ZoomTapAnimation(
                                       onTap: () {
                                         setState(() {
                                           dayNotes[dateToString(today)]
@@ -110,7 +111,7 @@ class _ImageListState extends State<ImageList> {
                                       ),
                                     ),
                                     SizedBox(width: 80.w),
-                                    GestureDetector(
+                                    ZoomTapAnimation(
                                       onTap: () {
                                         Navigator.pop(context);
                                       },
