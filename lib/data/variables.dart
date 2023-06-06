@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 bool isClicked = false;
 DateTime today = DateTime.now();
 TextEditingController controller = TextEditingController();
-PanelController panelController = PanelController();
 late TabController tabController;
 FocusNode focusNode = FocusNode();
 bool isPanelOpen = false;
+
+double goodDays = 0, badDays = 0, neutralDays = 0;
+double totalDays = goodDays + badDays + neutralDays;
 
 enum OrientationOption {
   splitView,

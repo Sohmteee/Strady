@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:strady/data/variables.dart';
@@ -32,6 +33,39 @@ String monthToString(int month) {
     default:
       return "";
   }
+}
+
+double maxDay(double goodDays, double badDays, double neutralDays) => [
+      goodDays,
+      badDays,
+      neutralDays
+    ].reduce((value, element) => value > element ? value : element);
+
+int maxValue(List<int> numbers) {
+  int greatestNumber = numbers[0];
+
+  for (int i = 1; i < numbers.length; i++) {
+    if (numbers[i] > greatestNumber) {
+      greatestNumber = numbers[i];
+    }
+  }
+  return greatestNumber;
+}
+
+List<int> generateNumbersWithSum({required int targetSum, required int count}) {
+  List<int> numbers = [];
+
+  // Generate random numbers
+  for (int i = 0; i < count - 1; i++) {
+    int randomNumber = Random().nextInt(targetSum);
+    numbers.add(randomNumber);
+    targetSum -= randomNumber;
+  }
+
+  // Add the remaining target sum as the last number
+  numbers.add(targetSum);
+
+  return numbers;
 }
 
 String dateToString(DateTime date) => "${date.day}-${date.month}-${date.year}";

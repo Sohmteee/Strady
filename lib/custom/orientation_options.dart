@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:strady/data/variables.dart';
+import 'package:strady/screens/dashboard.dart';
 import 'package:strady/static/colors.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
@@ -20,7 +21,14 @@ class OrientationOptions extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ZoomTapAnimation(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DashBoard(),
+              ),
+            );
+          },
           child: Container(
             padding: EdgeInsets.symmetric(
               horizontal: 15.w,
