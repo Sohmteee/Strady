@@ -8,9 +8,11 @@ late TabController graphController;
 FocusNode focusNode = FocusNode();
 bool isPanelOpen = false;
   bool startAnimation = false;
-  
+
 double goodDays = 0, badDays = 0, neutralDays = 0;
 double totalDays = goodDays + badDays + neutralDays;
+
+List<MapEntry<String, double>> entries = [];
 
 enum OrientationOption {
   splitView,

@@ -7,7 +7,7 @@ import 'package:strady/static/colors.dart';
 import 'package:strady/views/select_view.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-import '../custom/orientation_options.dart';
+import '../custom/home/orientation_options.dart';
 import '../data/functions.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     startAnimation = false;
-    
+
     return Scaffold(
       backgroundColor: grey800,
       body: SafeArea(

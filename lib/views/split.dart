@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:strady/controllers/scroll_controllers.dart';
-import 'package:strady/custom/circle_tab_indicator.dart';
+import 'package:strady/custom/home/circle_tab_indicator.dart';
 import 'package:strady/data/functions.dart';
 import 'package:strady/data/variables.dart';
 import 'package:strady/static/colors.dart';
