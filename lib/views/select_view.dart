@@ -19,11 +19,13 @@ class _SelectViewState extends State<SelectView> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     tabController = TabController(length: 2, vsync: this);
+    graphController = TabController(length: 2, vsync: this);
   }
 
   @override
   void dispose() {
     tabController.dispose();
+    graphController.dispose();
     super.dispose();
   }
 

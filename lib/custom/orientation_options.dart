@@ -5,7 +5,7 @@ import 'package:strady/screens/dashboard.dart';
 import 'package:strady/static/colors.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-class OrientationOptions extends StatelessWidget {
+class OrientationOptions extends StatefulWidget {
   final OrientationOption selectedOrientation;
   final void Function(OrientationOption) onOrientationChanged;
 
@@ -15,6 +15,11 @@ class OrientationOptions extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<OrientationOptions> createState() => _OrientationOptionsState();
+}
+
+class _OrientationOptionsState extends State<OrientationOptions> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -51,30 +56,32 @@ class OrientationOptions extends StatelessWidget {
           children: [
             ZoomTapAnimation(
               onTap: () {
-                onOrientationChanged(OrientationOption.listView);
+                widget.onOrientationChanged(OrientationOption.listView);
               },
               child: RotatedBox(
                 quarterTurns: 2,
                 child: Icon(
                   Icons.horizontal_split,
-                  color: selectedOrientation == OrientationOption.listView
-                      ? grey100
-                      : grey500,
+                  color:
+                      widget.selectedOrientation == OrientationOption.listView
+                          ? grey100
+                          : grey500,
                   size: 35.sp,
                 ),
               ),
             ),
             ZoomTapAnimation(
               onTap: () {
-                onOrientationChanged(OrientationOption.splitView);
+                widget.onOrientationChanged(OrientationOption.splitView);
               },
               child: RotatedBox(
                 quarterTurns: 2,
                 child: Icon(
                   Icons.vertical_split,
-                  color: selectedOrientation == OrientationOption.splitView
-                      ? grey100
-                      : grey500,
+                  color:
+                      widget.selectedOrientation == OrientationOption.splitView
+                          ? grey100
+                          : grey500,
                   size: 35.sp,
                 ),
               ),

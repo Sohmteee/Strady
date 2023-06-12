@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:strady/data/variables.dart';
+import 'package:strady/static/colors.dart';
 
 String monthToString(int month) {
   switch (month) {
@@ -50,6 +51,19 @@ int maxValue(List<int> numbers) {
     }
   }
   return greatestNumber;
+}
+
+Color getColorForLabel(String label) {
+  if (label == "Good days") {
+    return Colors.green;
+  } else if (label == "Bad days") {
+    return Colors.red;
+  } else if (label == "Neutral days") {
+    return grey400;
+  } else {
+    // Default color if label doesn't match any condition
+    return Colors.grey;
+  }
 }
 
 List<int> generateNumbersWithSum({required int targetSum, required int count}) {
@@ -107,6 +121,11 @@ String daySuffix(int n) {
   } else {
     return "th";
   }
+}
+
+bool isKeyboardVisible(BuildContext context) {
+  final EdgeInsets viewInsets = MediaQuery.of(context).viewInsets;
+  return viewInsets.bottom > 0;
 }
 
 void updateEvents(DateTime day) {

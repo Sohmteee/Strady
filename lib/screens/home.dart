@@ -44,6 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    startAnimation = false;
+    
     return Scaffold(
       backgroundColor: grey800,
       body: SafeArea(
@@ -74,7 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
             fullCalendar: true,
             backButton: false,
             locale: 'en',
-            events: events,
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -120,6 +121,54 @@ class _HomeScreenState extends State<HomeScreen> {
           floatingActionButton: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              isKeyboardVisible(context)
+                  ? const SizedBox()
+                  : Column(
+                      children: [
+                        ZoomTapAnimation(
+                          onTap: () {
+                            setState(() {});
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 20.h,
+                              horizontal: 15.w,
+                            ),
+                            decoration: BoxDecoration(
+                              color: grey900.withOpacity(.6),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Icon(
+                              Icons.thumb_up_alt,
+                              color: Colors.green.shade400,
+                              size: 30.sp,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 8.h),
+                        ZoomTapAnimation(
+                          onTap: () {
+                            setState(() {});
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 20.h,
+                              horizontal: 15.w,
+                            ),
+                            decoration: BoxDecoration(
+                              color: grey900.withOpacity(.6),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Icon(
+                              Icons.thumb_down_alt,
+                              color: Colors.red.shade300,
+                              size: 30.sp,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 8.h),
+                      ],
+                    ),
               ZoomTapAnimation(
                 onTap: () {
                   setState(() {
