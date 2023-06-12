@@ -116,21 +116,24 @@ class _DashBoardState extends State<DashBoard> {
                       ChartGroupPieLayer(
                         items: [
                           [
-                            ChartGroupPieDataItem(
-                              amount: goodDays,
-                              color: Colors.green,
-                              label: "Good Days",
-                            ),
-                            ChartGroupPieDataItem(
-                              amount: badDays,
-                              color: Colors.red,
-                              label: "Bad Days",
-                            ),
-                            ChartGroupPieDataItem(
-                              amount: neutralDays,
-                              color: grey400,
-                              label: "Neutral Days",
-                            ),
+                            if (goodDays != 0)
+                              ChartGroupPieDataItem(
+                                amount: goodDays,
+                                color: Colors.green,
+                                label: "Good Days",
+                              ),
+                            if (badDays != 0)
+                              ChartGroupPieDataItem(
+                                amount: badDays,
+                                color: Colors.red,
+                                label: "Bad Days",
+                              ),
+                            if (neutralDays != 0)
+                              ChartGroupPieDataItem(
+                                amount: neutralDays,
+                                color: grey400,
+                                label: "Neutral Days",
+                              ),
                           ]
                         ],
                         settings: ChartGroupPieSettings(
@@ -340,72 +343,84 @@ class _DashBoardState extends State<DashBoard> {
                         ChartGroupBarLayer(
                           items: [
                             [
-                              ChartGroupBarDataItem(
-                                color: Colors.green,
-                                value: week1[0].toDouble(),
-                                x: 1,
-                              ),
-                              ChartGroupBarDataItem(
-                                color: Colors.red,
-                                value: week1[1].toDouble(),
-                                x: 1,
-                              ),
-                              ChartGroupBarDataItem(
-                                color: grey400,
-                                value: week1[2].toDouble(),
-                                x: 1,
-                              ),
+                              if (week1[0].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: Colors.green,
+                                  value: week1[0].toDouble(),
+                                  x: 1,
+                                ),
+                              if (week1[1].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: Colors.red,
+                                  value: week1[1].toDouble(),
+                                  x: 1,
+                                ),
+                              if (week1[2].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: grey400,
+                                  value: week1[2].toDouble(),
+                                  x: 1,
+                                ),
                             ],
                             [
-                              ChartGroupBarDataItem(
-                                color: Colors.green,
-                                value: week2[0].toDouble(),
-                                x: 2,
-                              ),
-                              ChartGroupBarDataItem(
-                                color: Colors.red,
-                                value: week2[1].toDouble(),
-                                x: 2,
-                              ),
-                              ChartGroupBarDataItem(
-                                color: grey400,
-                                value: week2[2].toDouble(),
-                                x: 2,
-                              ),
+                              if (week2[0].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: Colors.green,
+                                  value: week2[0].toDouble(),
+                                  x: 2,
+                                ),
+                              if (week2[1].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: Colors.red,
+                                  value: week2[1].toDouble(),
+                                  x: 2,
+                                ),
+                              if (week2[2].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: grey400,
+                                  value: week2[2].toDouble(),
+                                  x: 2,
+                                ),
                             ],
                             [
-                              ChartGroupBarDataItem(
-                                color: Colors.green,
-                                value: week3[0].toDouble(),
-                                x: 3,
-                              ),
-                              ChartGroupBarDataItem(
-                                color: Colors.red,
-                                value: week3[1].toDouble(),
-                                x: 3,
-                              ),
-                              ChartGroupBarDataItem(
-                                color: grey400,
-                                value: week3[2].toDouble(),
-                                x: 4,
-                              ),
+                              if (week3[0].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: Colors.green,
+                                  value: week3[0].toDouble(),
+                                  x: 3,
+                                ),
+                              if (week3[1].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: Colors.red,
+                                  value: week3[1].toDouble(),
+                                  x: 3,
+                                ),
+                              if (week3[2].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: grey400,
+                                  value: week3[2].toDouble(),
+                                  x: 4,
+                                ),
                             ],
                             [
-                              ChartGroupBarDataItem(
-                                color: Colors.green,
-                                value: week4[0].toDouble(),
-                                x: 4,
-                              ),
-                              ChartGroupBarDataItem(
-                                color: Colors.red,
-                                value: week4[1].toDouble(),
-                                x: 4,
-                              ),
-                              ChartGroupBarDataItem(
-                                color: grey400,
-                                value: week4[2].toDouble(),
-                                x: 4,
-                              ),
+                              if (week4[0].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: Colors.green,
+                                  value: week4[0].toDouble(),
+                                  x: 4,
+                                ),
+                              if (week4[1].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: Colors.red,
+                                  value: week4[1].toDouble(),
+                                  x: 4,
+                                ),
+                              if (week4[2].toDouble() != 0)
+                                ChartGroupBarDataItem(
+                                  color: grey400,
+                                  value: week4[2].toDouble(),
+                                  x: 4,
+                                ),
                             ]
                           ],
                           settings: ChartGroupBarSettings(
