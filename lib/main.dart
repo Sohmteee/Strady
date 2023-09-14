@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'providers/notes_provider.dart';
 import 'screens/home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => NoteProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,9 +32,9 @@ class MyApp extends StatelessWidget {
           ),
           home: const HomeScreen(),
           debugShowCheckedModeBanner: false,
-          routes: {
+          /* routes: {
             "/home": (context) => const HomeScreen(),
-          },
+          }, */
         );
       },
     );

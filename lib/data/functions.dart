@@ -2,7 +2,9 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:strady/data/variables.dart';
+import 'package:strady/providers/notes_provider.dart';
 import 'package:strady/static/colors.dart';
 
 String monthToString(int month) {
@@ -85,6 +87,7 @@ List<int> generateNumbersWithSum({required int targetSum, required int count}) {
 String dateToString(DateTime date) => "${date.day}-${date.month}-${date.year}";
 
 showPictureDialog({context, today, index}) {
+  final noteProvider = Provider.of<NoteProvider>(context, listen: false);
   showDialog(
       context: context,
       barrierDismissible: true,
@@ -97,7 +100,7 @@ showPictureDialog({context, today, index}) {
           child: Dialog(
             child: Image.file(
               File(
-                dayNotes[dateToString(today)]?["images"][index],
+                noteProvider.dayNotes[dateToString(today)]?["images"][index],
               ),
               fit: BoxFit.fitHeight,
             ),
@@ -128,7 +131,7 @@ bool isKeyboardVisible(BuildContext context) {
   return viewInsets.bottom > 0;
 }
 
-void updateEvents(DateTime day) {
+/* void updateEvents(DateTime day) {
   final String currentDate = dateToString(day);
   if (!events!.contains(day)) {
     events!.add(day);
@@ -141,9 +144,9 @@ void updateEvents(DateTime day) {
       events!.remove(day);
     }
   }
-}
+} */
 
-void noteFunction() {
+/* void noteFunction() {
   String currentDate = dateToString(today);
 
   if (selectedOrientation == OrientationOption.splitView) {
@@ -160,7 +163,7 @@ void noteFunction() {
         "note": controller.text.trim(),
       };
       controller.clear();
-      updateEvents(today);
+      // updateEvents(today);
     } else {
       focusNode.requestFocus();
     }
@@ -176,8 +179,9 @@ void noteFunction() {
         "note": controller.text.trim(),
       };
       controller.text = text;
-      updateEvents(today);
+      // updateEvents(today);
       focusNode.requestFocus();
     }
   }
 }
+ */
